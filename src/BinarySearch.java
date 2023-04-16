@@ -1,4 +1,8 @@
+import java.security.DrbgParameters.NextBytes;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.lang.model.util.ElementScanner14;
 
 public class BinarySearch {
 
@@ -18,7 +22,24 @@ public class BinarySearch {
 	 *         If the target is not in the list, the last element is -1.
 	 */
 	public static List<Integer> binarySearch(List<String> strings,
-			String target, int fromIdx, int toIdx) {
-		return null;
+		String target, int fromIdx, int toIdx) {
+		List<Integer> index = new ArrayList<Integer>();
+		if(fromIdx > toIdx){
+			index.add(-1);
+			return index;
+		}
+
+		int midIdx = (fromIdx + toIdx) / 2;
+		index.add(midIdx);
+		int comp = strings.get(midIdx).compareTo(target);
+
+		if(comp == 0)
+			return index;
+		else if(comp > 0)
+			index.addAll(binarySearch(strings, target, fromIdx, midIdx - 1));
+		else
+			index.addAll(binarySearch(strings, target, midIdx + 1, toIdx));
+		return index;
+		}
+
 	}
-}
